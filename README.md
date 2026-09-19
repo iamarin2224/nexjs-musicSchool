@@ -4,7 +4,7 @@
 
 This project is a **frontend-only UI clone of a music school website**, built to learn the **basics of Next.js (App Router)** and explore **modern UI design** using **Aceternity UI** components.
 
-The focus is strictly on **UI development and design experimentation** using a UI library, not backend functionality.
+The focus is strictly on **UI development and design experimentation**, not backend functionality.
 
 ---
 
