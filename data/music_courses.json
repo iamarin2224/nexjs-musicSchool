@@ -1,105 +1,274 @@
 {
-    "courses": [
-      {
-        "id": 1,
-        "title": "Guitar Fundamentals",
-        "slug": "guitar-fundamentals",
-        "description": "Learn the basics of playing guitar with our comprehensive beginner's course.",
-        "price": 99.99,
-        "instructor": "John Doe",
-        "isFeatured": true,
-        "image": "https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg" 
-      },
-      {
-        "id": 2,
-        "title": "Piano for Beginners",
-        "slug": "piano-for-beginners",
-        "description": "Start your musical journey with foundational piano skills taught by expert instructors.",
-        "price": 109.99,
-        "instructor": "Jane Smith",
-        "isFeatured": false,
-        "image": "https://images.pexels.com/photos/1246437/pexels-photo-1246437.jpeg" 
-      },
-      {
-        "id": 3,
-        "title": "Advanced Vocal Techniques",
-        "slug": "advanced-vocal-techniques",
-        "description": "Enhance your singing with advanced vocal techniques for intermediate to advanced learners.",
-        "price": 119.99,
-        "instructor": "Emily Johnson",
-        "isFeatured": true,
-        "image": "https://images.pexels.com/photos/3388899/pexels-photo-3388899.jpeg" 
-      },
-      {
-        "id": 4,
-        "title": "Drumming Mastery",
-        "slug": "drumming-mastery",
-        "description": "Master the drums with our comprehensive course covering all skill levels.",
-        "price": 129.99,
-        "instructor": "Mike Brown",
-        "isFeatured": false,
-        "image": "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg"
-      },
-      {
-        "id": 5,
-        "title": "Jazz Improvisation",
-        "slug": "jazz-improvisation",
-        "description": "Learn the art of jazz improvisation with this course designed for all levels.",
-        "price": 139.99,
-        "instructor": "Chris Davis",
-        "isFeatured": false,
-        "image": "https://images.pexels.com/photos/733767/pexels-photo-733767.jpeg"
-      },
-      {
-        "id": 6,
-        "title": "Music Production Fundamentals",
-        "slug": "music-production-fundamentals",
-        "description": "Dive into music production with this introductory course on the basics of sound engineering and mixing.",
-        "price": 149.99,
-        "instructor": "Alex Wilson",
-        "isFeatured": true,
-        "image": "https://images.pexels.com/photos/3042642/pexels-photo-3042642.jpeg"
-      },
-      {
-        "id": 7,
-        "title": "Songwriting Essentials",
-        "slug": "songwriting-essentials",
-        "description": "Learn the essentials of songwriting to express your musical creativity.",
-        "price": 159.99,
-        "instructor": "Samantha Miller",
-        "isFeatured": false,
-        "image": "https://images.pexels.com/photos/6671608/pexels-photo-6671608.jpeg"
-      },
-      {
-        "id": 8,
-        "title": "Electronic Music Production",
-        "slug": "electronic-music-production",
-        "description": "Create compelling electronic music with our course designed for beginners to advanced users.",
-        "price": 169.99,
-        "instructor": "Luke Harris",
-        "isFeatured": true,
-        "image": "https://images.pexels.com/photos/257904/pexels-photo-257904.jpeg"
-      },
-      {
-        "id": 9,
-        "title": "Classical Music History",
-        "slug": "classical-music-history",
-        "description": "Explore the rich history of classical music from its origins to the present day.",
-        "price": 179.99,
-        "instructor": "Grace Lee",
-        "isFeatured": false,
-        "image": "https://images.pexels.com/photos/697672/pexels-photo-697672.jpeg"
-      },
-      {
-        "id": 10,
-        "title": "Blues Guitar Techniques",
-        "slug": "blues-guitar-techniques",
-        "description": "Discover the techniques of blues guitar to add soul and depth to your playing.",
-        "price": 189.99,
-        "instructor": "Ethan Moore",
-        "isFeatured": true,
-        "image": "https://images.pexels.com/photos/1656066/pexels-photo-1656066.jpeg"
-      }
-    ]
-  }
-  
+  "courses": [
+    {
+      "id": 1,
+      "title": "Guitar Fundamentals",
+      "slug": "guitar-fundamentals",
+      "description": "Learn the basics of playing guitar with our comprehensive beginner's course.",
+      "price": 99.99,
+      "instructor": "John Doe",
+      "category": "Strings",
+      "level": "Beginner",
+      "duration": "8 Weeks",
+      "rating": 4.9,
+      "studentsEnrolled": 1420,
+      "isFeatured": true,
+      "image": "https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg",
+      "syllabus": [
+        "Introduction to Acoustic & Electric Guitar anatomy",
+        "Essential open chords and strumming patterns",
+        "Fingerpicking fundamentals and rhythm timing",
+        "Reading guitar tabs and lead chord progressions",
+        "Capstone: Playing your first complete acoustic song"
+      ],
+      "highlights": [
+        "Weekly 1-on-1 Feedback",
+        "Downloadable Tab Sheets & Backing Tracks",
+        "Certificate of Completion"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Piano for Beginners",
+      "slug": "piano-for-beginners",
+      "description": "Start your musical journey with foundational piano skills taught by expert instructors.",
+      "price": 109.99,
+      "instructor": "Jane Smith",
+      "category": "Keys",
+      "level": "Beginner",
+      "duration": "10 Weeks",
+      "rating": 4.8,
+      "studentsEnrolled": 1850,
+      "isFeatured": false,
+      "image": "https://images.pexels.com/photos/1246437/pexels-photo-1246437.jpeg",
+      "syllabus": [
+        "Keyboard posture, hand positioning, and note reading",
+        "Treble & bass clef mastery and rhythm basics",
+        "Major and minor scales, arpeggios, and triad chords",
+        "Two-hand coordination and smooth dynamic control",
+        "Performance piece: Classical & Contemporary miniatures"
+      ],
+      "highlights": [
+        "Interactive Sheet Music Viewer",
+        "Guided Practice Drills",
+        "Lifetime Access to Course Recordings"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Advanced Vocal Techniques",
+      "slug": "advanced-vocal-techniques",
+      "description": "Enhance your singing with advanced vocal techniques for intermediate to advanced learners.",
+      "price": 119.99,
+      "instructor": "Emily Johnson",
+      "category": "Vocals",
+      "level": "Advanced",
+      "duration": "6 Weeks",
+      "rating": 5.0,
+      "studentsEnrolled": 980,
+      "isFeatured": true,
+      "image": "https://images.pexels.com/photos/3388899/pexels-photo-3388899.jpeg",
+      "syllabus": [
+        "Diaphragmatic breath support & vocal tract acoustics",
+        "Expanding chest-to-head voice mix and eliminating vocal breaks",
+        "Vibrato control, pitch accuracy, and vocal ornamentation (runs & riffs)",
+        "Microphone technique and studio vocal projection",
+        "Final performance assessment & custom vocal range audit"
+      ],
+      "highlights": [
+        "Individual Pitch & Formant Analysis",
+        "Daily Vocal Warm-up Stems",
+        "Direct Coaching Session with Emily"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Drumming Mastery",
+      "slug": "drumming-mastery",
+      "description": "Master the drums with our comprehensive course covering all skill levels.",
+      "price": 129.99,
+      "instructor": "Mike Brown",
+      "category": "Percussion",
+      "level": "All Levels",
+      "duration": "12 Weeks",
+      "rating": 4.7,
+      "studentsEnrolled": 870,
+      "isFeatured": false,
+      "image": "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg",
+      "syllabus": [
+        "Stick grip, ergonomics, and pedal stroke mechanics",
+        "Essential 40 drum rudiments applied across the kit",
+        "Groove construction in Rock, Funk, and Latin styles",
+        "Limb independence and polyrhythmic development",
+        "Studio recording techniques for acoustic & electronic kits"
+      ],
+      "highlights": [
+        "Custom Metronome & Click Tracks",
+        "Multi-Angle Video Tutorials",
+        "Live Monthly Jam Sessions"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Jazz Improvisation",
+      "slug": "jazz-improvisation",
+      "description": "Learn the art of jazz improvisation with this course designed for all levels.",
+      "price": 139.99,
+      "instructor": "Chris Davis",
+      "category": "Theory",
+      "level": "Intermediate",
+      "duration": "8 Weeks",
+      "rating": 4.9,
+      "studentsEnrolled": 640,
+      "isFeatured": false,
+      "image": "https://images.pexels.com/photos/733767/pexels-photo-733767.jpeg",
+      "syllabus": [
+        "Modal theory, ii-V-I progressions, and chord-scale relationships",
+        "Bebop scales, guide tones, and enclosure techniques",
+        "Developing melodic motifs and real-time storytelling",
+        "Comping rhythms and accompanying soloists",
+        "Transcribing master solos and stylistic analysis"
+      ],
+      "highlights": [
+        "Curated Jazz Standards Lead Sheets",
+        "Interactive Backing Band Tracks",
+        "Improvisation Masterclasses"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Music Production Fundamentals",
+      "slug": "music-production-fundamentals",
+      "description": "Dive into music production with this introductory course on the basics of sound engineering and mixing.",
+      "price": 149.99,
+      "instructor": "Alex Wilson",
+      "category": "Production",
+      "level": "Beginner",
+      "duration": "10 Weeks",
+      "rating": 4.9,
+      "studentsEnrolled": 2100,
+      "isFeatured": true,
+      "image": "https://images.pexels.com/photos/3042642/pexels-photo-3042642.jpeg",
+      "syllabus": [
+        "DAW navigation, signal routing, and MIDI workflow",
+        "EQ, dynamic compression, reverb, and delay basics",
+        "Vocal tuning, drum replacement, and layer stacking",
+        "Rough mixing, gain staging, and frequency balancing",
+        "Mastering essentials for streaming platforms"
+      ],
+      "highlights": [
+        "Includes 5GB Royalty-Free Sample Pack",
+        "Project Template Files for Ableton & Logic",
+        "Track Feedback by Industry Engineers"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Songwriting Essentials",
+      "slug": "songwriting-essentials",
+      "description": "Learn the essentials of songwriting to express your musical creativity.",
+      "price": 159.99,
+      "instructor": "Samantha Miller",
+      "category": "Theory",
+      "level": "All Levels",
+      "duration": "6 Weeks",
+      "rating": 4.8,
+      "studentsEnrolled": 1150,
+      "isFeatured": false,
+      "image": "https://images.pexels.com/photos/6671608/pexels-photo-6671608.jpeg",
+      "syllabus": [
+        "Song structures: Verse, Pre-Chorus, Hook & Bridge architecture",
+        "Lyric writing: Rhyme schemes, metaphors, and emotional arcs",
+        "Melodic hooks, prosody, and harmonic color choices",
+        "Arrangement dynamics and demo production",
+        "Publishing, copyright registration, and pitching to artists"
+      ],
+      "highlights": [
+        "Songwriting Workbook & Rhyme Dictionaries",
+        "Weekly Peer Review Workshops",
+        "Publisher Pitch Opportunities"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Electronic Music Production",
+      "slug": "electronic-music-production",
+      "description": "Create compelling electronic music with our course designed for beginners to advanced users.",
+      "price": 169.99,
+      "instructor": "Luke Harris",
+      "category": "Production",
+      "level": "Intermediate",
+      "duration": "10 Weeks",
+      "rating": 4.9,
+      "studentsEnrolled": 1780,
+      "isFeatured": true,
+      "image": "https://images.pexels.com/photos/257904/pexels-photo-257904.jpeg",
+      "syllabus": [
+        "Synthesizer sound design: Subtractive, Wavetable, and FM",
+        "Creating custom basslines, plucks, leads, and atmospheric pads",
+        "Beat construction, sidechain compression, and build-up tension",
+        "Arranging EDM, House, Techno, and Ambient tracks",
+        "Master bus processing and club-ready loudness balancing"
+      ],
+      "highlights": [
+        "Serum & Vital Preset Packs Included",
+        "Stem-by-Stem Breakdowns of Hit Tracks",
+        "Label Demo Submission Guide"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Classical Music History",
+      "slug": "classical-music-history",
+      "description": "Explore the rich history of classical music from its origins to the present day.",
+      "price": 179.99,
+      "instructor": "Grace Lee",
+      "category": "Theory",
+      "level": "All Levels",
+      "duration": "8 Weeks",
+      "rating": 4.6,
+      "studentsEnrolled": 520,
+      "isFeatured": false,
+      "image": "https://images.pexels.com/photos/697672/pexels-photo-697672.jpeg",
+      "syllabus": [
+        "Medieval chant through Renaissance polyphony",
+        "The Baroque masters: Bach, Handel, and Vivaldi",
+        "Classical form & symmetry: Mozart, Haydn, Beethoven",
+        "Romantic expressivism, Nationalism, and Orchestral expansion",
+        "20th Century Modernism, Minimalist movements & Film scoring"
+      ],
+      "highlights": [
+        "High-Resolution Orchestral Audio Archives",
+        "Illustrated Historical Timeline Guides",
+        "Discussion Forum & Guest Lectures"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Blues Guitar Techniques",
+      "slug": "blues-guitar-techniques",
+      "description": "Discover the techniques of blues guitar to add soul and depth to your playing.",
+      "price": 189.99,
+      "instructor": "Ethan Moore",
+      "category": "Strings",
+      "level": "Intermediate",
+      "duration": "8 Weeks",
+      "rating": 4.9,
+      "studentsEnrolled": 1330,
+      "isFeatured": true,
+      "image": "https://images.pexels.com/photos/1656066/pexels-photo-1656066.jpeg",
+      "syllabus": [
+        "12-bar blues progressions, turnaround variations, and shuffle rhythms",
+        "Minor and major pentatonic blending & the elusive blue note",
+        "Bending nuance, vibrato styles (B.B. King vs. SRV), and string muting",
+        "Slide guitar fundamentals and open tunings (Open D & G)",
+        "Improvising expressive blues solos over live rhythm sections"
+      ],
+      "highlights": [
+        "Authentic Vintage Tone Setup Guide",
+        "15 Authentic Blues Backing Tracks",
+        "Solo Breakdown Video Lessons"
+      ]
+    }
+  ]
+}
