@@ -2,8 +2,10 @@
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import courseData from "@/data/music_courses.json";
+import { useWishlist } from "@/lib/useWishlist";
 
 interface Course {
   id: number;
@@ -30,7 +32,10 @@ export default function CoursesPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedLevel, setSelectedLevel] = useState("All Levels");
+  const [showSavedOnly, setShowSavedOnly] = useState(false);
   const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc" | "rating" | "name">("featured");
+
+  const { wishlist, toggleWishlist, isWishlisted, isLoaded } = useWishlist();
 
   const courses = courseData.courses as Course[];
 
@@ -48,7 +53,9 @@ export default function CoursesPage() {
         const matchesLevel =
           selectedLevel === "All Levels" || course.level === selectedLevel || course.level === "All Levels";
 
-        return matchesSearch && matchesCategory && matchesLevel;
+        const matchesWishlist = !showSavedOnly || wishlist.includes(course.id);
+
+        return matchesSearch && matchesCategory && matchesLevel && matchesWishlist;
       })
       .sort((a, b) => {
         if (sortBy === "price-asc") return a.price - b.price;
@@ -59,12 +66,13 @@ export default function CoursesPage() {
         if (a.isFeatured === b.isFeatured) return a.id - b.id;
         return a.isFeatured ? -1 : 1;
       });
-  }, [courses, searchQuery, selectedCategory, selectedLevel, sortBy]);
+  }, [courses, searchQuery, selectedCategory, selectedLevel, showSavedOnly, wishlist, sortBy]);
 
   const resetFilters = () => {
     setSearchQuery("");
     setSelectedCategory("All");
     setSelectedLevel("All Levels");
+    setShowSavedOnly(false);
     setSortBy("featured");
   };
 
@@ -116,23 +124,41 @@ export default function CoursesPage() {
             )}
           </div>
 
-          {/* Sort Dropdown */}
-          <div className="flex items-center gap-3 w-full md:w-auto justify-end">
-            <label htmlFor="sort" className="text-neutral-400 text-xs sm:text-sm whitespace-nowrap">
-              Sort by:
-            </label>
-            <select
-              id="sort"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as "featured" | "price-asc" | "price-desc" | "rating" | "name")}
-              className="bg-neutral-950 text-white border border-neutral-700 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:border-teal-500 cursor-pointer"
+          {/* Wishlist toggle & Sort Dropdown */}
+          <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-end">
+            <button
+              onClick={() => setShowSavedOnly(!showSavedOnly)}
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium border transition cursor-pointer ${
+                showSavedOnly
+                  ? "bg-rose-500/20 text-rose-300 border-rose-500/50"
+                  : "bg-neutral-950 text-neutral-400 border-neutral-700 hover:text-white"
+              }`}
             >
-              <option value="featured">Featured First</option>
-              <option value="rating">Highest Rated</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="name">Title (A-Z)</option>
-            </select>
+              <span>{showSavedOnly ? "❤️" : "🤍"}</span>
+              <span>Saved ({isLoaded ? wishlist.length : 0})</span>
+            </button>
+
+            <div className="flex items-center gap-2">
+              <label htmlFor="sort" className="text-neutral-400 text-xs sm:text-sm whitespace-nowrap">
+                Sort:
+              </label>
+              <select
+                id="sort"
+                value={sortBy}
+                onChange={(e) =>
+                  setSortBy(
+                    e.target.value as "featured" | "price-asc" | "price-desc" | "rating" | "name"
+                  )
+                }
+                className="bg-neutral-950 text-white border border-neutral-700 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:border-teal-500 cursor-pointer"
+              >
+                <option value="featured">Featured First</option>
+                <option value="rating">Highest Rated</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="name">Title (A-Z)</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -182,7 +208,7 @@ export default function CoursesPage() {
             Showing <strong className="text-white">{filteredCourses.length}</strong> of{" "}
             {courses.length} courses
           </span>
-          {(searchQuery || selectedCategory !== "All" || selectedLevel !== "All Levels" || sortBy !== "featured") && (
+          {(searchQuery || selectedCategory !== "All" || selectedLevel !== "All Levels" || showSavedOnly || sortBy !== "featured") && (
             <button
               onClick={resetFilters}
               className="text-teal-400 hover:text-teal-300 underline cursor-pointer"
@@ -198,7 +224,9 @@ export default function CoursesPage() {
         <div className="text-center py-20 bg-neutral-900/30 rounded-3xl border border-neutral-800/80 max-w-xl mx-auto my-8">
           <p className="text-xl text-neutral-300 font-semibold mb-2">No courses match your criteria</p>
           <p className="text-sm text-neutral-500 mb-6">
-            Try adjusting your search terms or resetting the selected filters.
+            {showSavedOnly
+              ? "You haven't bookmarked any courses yet. Click the heart icon on any card to save it!"
+              : "Try adjusting your search terms or resetting the selected filters."}
           </p>
           <button
             onClick={resetFilters}
@@ -209,76 +237,110 @@ export default function CoursesPage() {
         </div>
       ) : (
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-          {filteredCourses.map((course) => (
-            <CardContainer className="inter-var w-full max-w-[24rem]" key={course.id}>
-              <CardBody className="bg-neutral-950 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] border-neutral-800 w-full h-auto rounded-2xl p-6 border flex flex-col justify-between">
-                <div>
-                  {/* Category & Badge Row */}
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-teal-400 bg-teal-950/60 border border-teal-800/40 px-2.5 py-0.5 rounded-md">
-                      {course.category}
-                    </span>
-                    <div className="flex items-center gap-1 text-xs text-amber-400">
-                      <span>★</span>
-                      <span className="font-semibold text-white">{course.rating}</span>
-                      <span className="text-neutral-500">({course.studentsEnrolled})</span>
+          {filteredCourses.map((course) => {
+            const saved = isWishlisted(course.id);
+            return (
+              <CardContainer className="inter-var w-full max-w-[24rem]" key={course.id}>
+                <CardBody className="bg-neutral-950 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] border-neutral-800 w-full h-auto rounded-2xl p-6 border flex flex-col justify-between">
+                  <div>
+                    {/* Category, Rating & Bookmark Button */}
+                    <div className="flex justify-between items-center mb-3">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-teal-400 bg-teal-950/60 border border-teal-800/40 px-2.5 py-0.5 rounded-md">
+                        {course.category}
+                      </span>
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-1 text-xs text-amber-400">
+                          <span>★</span>
+                          <span className="font-semibold text-white">{course.rating}</span>
+                          <span className="text-neutral-500">({course.studentsEnrolled})</span>
+                        </div>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            toggleWishlist(course.id);
+                          }}
+                          aria-label={saved ? "Remove from wishlist" : "Add to wishlist"}
+                          className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
+                            saved
+                              ? "bg-rose-500/20 border-rose-500/50 text-rose-400 scale-110"
+                              : "bg-neutral-900 border-neutral-800 text-neutral-400 hover:text-white"
+                          }`}
+                        >
+                          <svg
+                            className="w-4 h-4"
+                            fill={saved ? "currentColor" : "none"}
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
+
+                    {/* Title */}
+                    <CardItem
+                      translateZ="50"
+                      className="text-xl font-bold text-white group-hover/card:text-teal-400 transition-colors"
+                    >
+                      {course.title}
+                    </CardItem>
+
+                    {/* Instructor */}
+                    <p className="text-xs text-neutral-400 mt-1">
+                      By <span className="text-neutral-200">{course.instructor}</span> • {course.duration} • {course.level}
+                    </p>
+
+                    {/* Description */}
+                    <CardItem
+                      as="p"
+                      translateZ="60"
+                      className="text-neutral-400 text-xs line-clamp-2 mt-3"
+                    >
+                      {course.description}
+                    </CardItem>
+
+                    {/* Image with next/image */}
+                    <CardItem translateZ="100" className="w-full mt-4">
+                      <div className="relative h-44 w-full rounded-xl overflow-hidden group-hover/card:shadow-xl">
+                        <Image
+                          src={course.image}
+                          alt={course.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-cover transition-all"
+                        />
+                      </div>
+                    </CardItem>
                   </div>
 
-                  {/* Title */}
-                  <CardItem
-                    translateZ="50"
-                    className="text-xl font-bold text-white group-hover/card:text-teal-400 transition-colors"
-                  >
-                    {course.title}
-                  </CardItem>
+                  {/* Footer Action */}
+                  <div className="flex justify-between items-center mt-6 pt-4 border-t border-neutral-800/80">
+                    <div className="flex flex-col">
+                      <span className="text-[10px] text-neutral-500 uppercase font-medium">Tuition</span>
+                      <span className="text-lg font-extrabold text-white">${course.price}</span>
+                    </div>
 
-                  {/* Instructor */}
-                  <p className="text-xs text-neutral-400 mt-1">
-                    By <span className="text-neutral-200">{course.instructor}</span> • {course.duration} • {course.level}
-                  </p>
-
-                  {/* Description */}
-                  <CardItem
-                    as="p"
-                    translateZ="60"
-                    className="text-neutral-400 text-xs line-clamp-2 mt-3"
-                  >
-                    {course.description}
-                  </CardItem>
-
-                  {/* Image */}
-                  <CardItem translateZ="100" className="w-full mt-4">
-                    <img
-                      src={course.image}
-                      height="600"
-                      width="600"
-                      className="h-44 w-full object-cover rounded-xl group-hover/card:shadow-xl transition-all"
-                      alt={course.title}
-                    />
-                  </CardItem>
-                </div>
-
-                {/* Footer Action */}
-                <div className="flex justify-between items-center mt-6 pt-4 border-t border-neutral-800/80">
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-neutral-500 uppercase font-medium">Tuition</span>
-                    <span className="text-lg font-extrabold text-white">${course.price}</span>
+                    <CardItem
+                      translateZ={20}
+                      as={Link}
+                      href={`/courses/${course.slug}`}
+                      className="px-4 py-2 rounded-xl bg-white text-black hover:bg-neutral-200 text-xs font-bold transition cursor-pointer flex items-center gap-1.5"
+                    >
+                      <span>View Details</span>
+                      <span>→</span>
+                    </CardItem>
                   </div>
-
-                  <CardItem
-                    translateZ={20}
-                    as={Link}
-                    href={`/courses/${course.slug}`}
-                    className="px-4 py-2 rounded-xl bg-white text-black hover:bg-neutral-200 text-xs font-bold transition cursor-pointer flex items-center gap-1.5"
-                  >
-                    <span>View Details</span>
-                    <span>→</span>
-                  </CardItem>
-                </div>
-              </CardBody>
-            </CardContainer>
-          ))}
+                </CardBody>
+              </CardContainer>
+            );
+          })}
         </div>
       )}
     </div>

@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
 
 const transition = {
@@ -39,12 +41,12 @@ export const MenuItem = ({
           {active === item && children && (
             <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
               <motion.div
-              transition={transition}
-                layoutId="active" // layoutId ensures smooth animation
+                transition={transition}
+                layoutId="active"
                 className="bg-white dark:bg-black backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.2] dark:border-white/[0.2] shadow-xl"
               >
                 <motion.div
-                  layout // layout ensures smooth animation
+                  layout
                   className="w-max h-full p-4"
                 >
                   {children}
@@ -67,7 +69,7 @@ export const Menu = ({
 }) => {
   return (
     <nav
-      onMouseLeave={() => setActive(null)} // resets the state
+      onMouseLeave={() => setActive(null)}
       className="relative rounded-full border border-transparent dark:bg-black dark:border-white/[0.2] bg-white shadow-input flex justify-around space-x-4 px-8 py-6 "
     >
       {children}
@@ -87,13 +89,13 @@ export const ProductItem = ({
   src: string;
 }) => {
   return (
-    <a href={href} className="flex space-x-2">
-      <img
+    <Link href={href} className="flex space-x-2">
+      <Image
         src={src}
         width={140}
         height={70}
         alt={title}
-        className="shrink-0 rounded-md shadow-2xl"
+        className="shrink-0 rounded-md shadow-2xl object-cover"
       />
       <div>
         <h4 className="text-xl font-bold mb-1 text-black dark:text-white">
@@ -103,11 +105,11 @@ export const ProductItem = ({
           {description}
         </p>
       </div>
-    </a>
+    </Link>
   );
 };
 
-export const HoveredLink = ({ children, ...rest }: any) => {
+export const HoveredLink = ({ children, ...rest }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
   return (
     <a
       {...rest}
