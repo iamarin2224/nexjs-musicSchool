@@ -1,6 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import courseData from "@/data/music_courses.json";
 import CourseEnrollClient from "./CourseEnrollClient";
@@ -155,14 +156,16 @@ export default async function CourseDetailPage({ params }: Props) {
           {/* Right Column (Sticky Enrollment Card) */}
           <div className="lg:col-span-1">
             <div className="sticky top-28 bg-neutral-950 border border-neutral-800 rounded-3xl p-6 shadow-2xl space-y-6">
-              <div className="overflow-hidden rounded-2xl border border-neutral-800 relative group">
-                <img
+              <div className="overflow-hidden rounded-2xl border border-neutral-800 relative group h-48 w-full">
+                <Image
                   src={course.image}
                   alt={course.title}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                <span className="absolute bottom-3 left-3 text-xs bg-black/70 backdrop-blur-md px-3 py-1 rounded-full text-white border border-white/10 font-medium">
+                <span className="absolute bottom-3 left-3 text-xs bg-black/70 backdrop-blur-md px-3 py-1 rounded-full text-white border border-white/10 font-medium z-10">
                   Full Program Access
                 </span>
               </div>
@@ -177,7 +180,7 @@ export default async function CourseDetailPage({ params }: Props) {
                 <p className="text-xs text-emerald-400 font-medium">Save 38% • One-time payment</p>
               </div>
 
-              {/* Client Component with interactive Enroll Modal */}
+              {/* Client Component with interactive Enroll Modal & Wishlist toggle */}
               <CourseEnrollClient course={course} />
 
               <div className="pt-4 border-t border-neutral-800/80 space-y-2.5 text-xs text-neutral-400">
@@ -223,11 +226,15 @@ export default async function CourseDetailPage({ params }: Props) {
                   className="group bg-neutral-950 border border-neutral-800 hover:border-teal-500/50 rounded-2xl overflow-hidden p-4 transition duration-300 flex flex-col justify-between"
                 >
                   <div>
-                    <img
-                      src={rel.image}
-                      alt={rel.title}
-                      className="w-full h-36 object-cover rounded-xl group-hover:scale-[1.02] transition"
-                    />
+                    <div className="relative w-full h-36 rounded-xl overflow-hidden">
+                      <Image
+                        src={rel.image}
+                        alt={rel.title}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover group-hover:scale-[1.02] transition"
+                      />
+                    </div>
                     <div className="mt-3 flex items-center justify-between text-xs">
                       <span className="text-teal-400 font-medium">{rel.category}</span>
                       <span className="text-neutral-400">★ {rel.rating}</span>

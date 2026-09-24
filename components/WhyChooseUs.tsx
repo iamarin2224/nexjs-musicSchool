@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { StickyScroll } from "./ui/sticky-scroll-reveal";
 
 const content = [
@@ -8,7 +9,7 @@ const content = [
     description:
       "Music thrives in collaboration. Train alongside fellow musicians, instructors, and mentors in an environment that encourages shared learning, constructive feedback, and creative exchange. Build musical confidence while growing as part of a serious, driven community.",
     content: (
-      <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] text-white">
+      <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] text-white font-semibold text-lg p-6 text-center">
         Learn Together, Grow Faster
       </div>
     ),
@@ -18,11 +19,11 @@ const content = [
     description:
       "Progress faster with immediate feedback from experienced instructors. Whether it’s technique, tone, or timing, corrections happen as you practice—helping you refine your skills in the moment and develop strong musical instincts.",
     content: (
-      <div className="flex h-full w-full items-center justify-center text-white">
-        <img
+      <div className="relative flex h-full w-full items-center justify-center text-white overflow-hidden rounded-md">
+        <Image
           src="https://images.pexels.com/photos/6919956/pexels-photo-6919956.jpeg"
-          width={300}
-          height={300}
+          width={500}
+          height={500}
           className="h-full w-full object-cover"
           alt="live music instruction demo"
         />
@@ -34,7 +35,7 @@ const content = [
     description:
       "Our curriculum is designed with clarity and progression in mind. Each course builds on the last, ensuring you master fundamentals before advancing to complex techniques. No guesswork—just a clear path from beginner to professional-level musician.",
     content: (
-      <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] text-white">
+      <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] text-white font-semibold text-lg p-6 text-center">
         Professional Music Curriculum
       </div>
     ),
@@ -44,11 +45,11 @@ const content = [
     description:
       "Every lesson, exercise, and assignment is intentional. We focus on meaningful practice that translates directly to real musical ability—on stage, in the studio, or in collaborative settings. Your time is respected, and your progress is measurable.",
     content: (
-      <div className="flex h-full w-full items-center justify-center text-white">
-        <img
+      <div className="relative flex h-full w-full items-center justify-center text-white overflow-hidden rounded-md">
+        <Image
           src="https://images.pexels.com/photos/8512413/pexels-photo-8512413.jpeg"
-          width={300}
-          height={300}
+          width={500}
+          height={500}
           className="h-full w-full object-cover"
           alt="live music instruction demo"
         />
@@ -56,7 +57,6 @@ const content = [
     ),
   },
 ];
-
 
 export default function WhyChooseUs() {
   return (
